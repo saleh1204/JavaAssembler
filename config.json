@@ -1,0 +1,261 @@
+{
+  "ins_size": 16,
+  "rt_offset": 5,
+  "rs_offset": 8,
+  "funct_offset": 2,
+  "rd_offset": 11,
+  "iimm_offset": 5,
+  "iimm_mask": "1f",
+  "jimm_offset": 11,
+  "jimm_mask": "7ff",
+  "jimm_abs": 0,
+  "opcode_offset": 16,
+  "Types": [
+    "R0",
+    "I0",
+    "I1",
+    "SB0",
+    "SB1",
+    "J0",
+    "J1",
+    "J2"
+  ],
+  "set": {
+    "R0": {
+      "instructions": {
+        "xor": [
+          "00000",
+          "00"
+        ],
+        "or": [
+          "00000",
+          "01"
+        ],
+        "and": [
+          "00000",
+          "10"
+        ],
+        "sll": [
+          "00001",
+          "00"
+        ],
+        "srl": [
+          "00001",
+          "01"
+        ],
+        "sra": [
+          "00001",
+          "10"
+        ],
+        "add": [
+          "00010",
+          "00"
+        ],
+        "sub": [
+          "00010",
+          "01"
+        ],
+        "slt": [
+          "00010",
+          "10"
+        ],
+        "sltu": [
+          "00010",
+          "11"
+        ]
+      },
+      "seperator": " =\t,R$",
+      "regs": {
+        "rd": 1,
+        "rs": 2,
+        "rt": 3,
+        "imm_label": -1,
+        "imm_int": -1,
+        "jmm_label": -1
+      }
+    },
+    "I0": {
+      "instructions": {
+        "lw": [
+          "01100",
+          "00"
+        ]
+      },
+      "seperator": " =\t,R$()",
+      "regs": {
+        "rd": 1,
+        "rs": 3,
+        "rt": -1,
+        "imm_label": -1,
+        "imm_int": 2,
+        "jmm_label": -1
+      }
+    },
+    "I1": {
+      "instructions": {
+        "addi": [
+          "00011",
+          "00"
+        ],
+        "slti": [
+          "00100",
+          "00"
+        ],
+        "sltiu": [
+          "00101",
+          "00"
+        ],
+        "xori": [
+          "00110",
+          "00"
+        ],
+        "ori": [
+          "00111",
+          "00"
+        ],
+        "andi": [
+          "01000",
+          "00"
+        ],
+        "slli": [
+          "01001",
+          "00"
+        ],
+        "srli": [
+          "01010",
+          "00"
+        ],
+        "srai": [
+          "01011",
+          "00"
+        ]
+      },
+      "seperator": " =\t,R$",
+      "regs": {
+        "rd": 1,
+        "rs": 2,
+        "rt": -1,
+        "imm_label": -1,
+        "imm_int": 3,
+        "jmm_label": -1
+      }
+    },
+    "SB0": {
+      "instructions": {
+        "sw": [
+          "01101",
+          "00"
+        ]
+      },
+      "seperator": " =\t,R$()",
+      "regs": {
+        "rd": -1,
+        "rs": 3,
+        "rt": 1,
+        "split_imm_int": 1,
+        "offset_split_imm_int0": 11,
+        "mask_split_imm_int0": 7,
+        "offset_split_imm_int1": 2,
+        "mask_split_imm_int1": 3,
+        "imm_int0_size": 3,
+        "imm_label": -1,
+        "imm_int": 2,
+        "jmm_label": -1
+      }
+    },
+    "SB1": {
+      "instructions": {
+        "beq": [
+          "01110",
+          "00"
+        ],
+        "bne": [
+          "01111",
+          "00"
+        ],
+        "blt": [
+          "10000",
+          "00"
+        ],
+        "bge": [
+          "10001",
+          "00"
+        ],
+        "bltu": [
+          "10010",
+          "00"
+        ],
+        "bgeu": [
+          "10011",
+          "00"
+        ]
+      },
+      "seperator": " =\t,R$",
+      "regs": {
+        "rd": -1,
+        "rs": 1,
+        "rt": 2,
+        "split_imm_int": 1,
+        "offset_split_imm_int0": 11,
+        "mask_split_imm_int0": 7,
+        "offset_split_imm_int1": 2,
+        "mask_split_imm_int1": 3,
+        "imm_int0_size": 3,
+        "imm_label": 3,
+        "imm_int": -1,
+        "jmm_label": -1
+      }
+    },
+    "J0": {
+      "instructions": {
+        "j": [
+          "10101",
+          "00"
+        ],
+        "jal": [
+          "10110",
+          "00"
+        ]
+      },
+      "seperator": " =\t,R$",
+      "regs": {
+        "rt": -1,
+        "rs": -1,
+        "rd": -1,
+        "imm_label": -1,
+        "imm_int": -1,
+        "jmm_label": 1
+      }
+    },
+    "J1": {
+      "instructions": {
+        "jalr": [
+          "10111",
+          "00"
+        ]
+      },
+      "seperator": " =\t,R$",
+      "regs": {
+        "rt": -1,
+        "rs": 2,
+        "rd": 1,
+        "imm_label": -1,
+        "imm_int": 3,
+        "jmm_label": -1
+      }
+    },
+    "J2": {
+      "instructions": {
+        "lui": [
+          "10100",
+          "00"
+        ]
+      },
+      "seperator": " =\t,R$",
+      "regs": {
+        "rd": -1,
+        "imm_int12": 1
+      }
+    }
+  }
+}
