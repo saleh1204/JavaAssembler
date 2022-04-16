@@ -98,7 +98,7 @@ public class InstructionType {
     public Instruction getInstructionObject(String instruction) {
         Instruction inst = null;
         for (Instruction it : this.getInstructions()) {
-            if (it.getName().equals(instruction)) {
+            if (it.getName().equalsIgnoreCase(instruction)) {
                 inst = it;
                 break;
             }

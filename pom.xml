@@ -61,7 +61,6 @@
 				<version>
 					3.10.1
 				</version>
-
 			</plugin>
 		</plugins>
 	</build>
@@ -137,5 +136,8 @@
 		<java.version>
 			11
 		</java.version>
+		<exec.mainClass>
+			salehs.javaassembler.AssemblerGUI
+		</exec.mainClass>
 	</properties>
 </project>

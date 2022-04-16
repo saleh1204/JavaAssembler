@@ -101,7 +101,7 @@ public class AssemblerConfig {
         InstructionType inst_type = null;
         for (InstructionType it : this.instructionTypes) {
             for (Instruction inst : it.getInstructions()) {
-                if (inst.getName().equals(instruction)) {
+                if (inst.getName().equalsIgnoreCase(instruction)) {
                     inst_type = it;
                     break;
                 }

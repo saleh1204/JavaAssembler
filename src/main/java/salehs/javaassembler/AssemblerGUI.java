@@ -14,8 +14,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Map;
-
+import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -224,6 +223,7 @@ public class AssemblerGUI extends javax.swing.JFrame {
                 saved = false;
                 this.statusLabel.setText("Status: Assembly file opened successfully");
                 this.statusLabel.setForeground(new Color(0, 255, 0));
+                modified = true;
             } catch (IOException x) {
                 JOptionPane.showMessageDialog(this, "File could not be opened: " + filename,
                         "Could not read assembly file", JOptionPane.ERROR_MESSAGE);
@@ -275,7 +275,7 @@ public class AssemblerGUI extends javax.swing.JFrame {
         this.saveFileMenuItemActionPerformed(null);
         if (saved) {
             String preprocessed = preprocessor.process(textArea.getText());
-            Map<String, Integer> labels = preprocessor.getLabels();
+            HashMap<String, Integer> labels = preprocessor.getLabels();
             String hexFile = filename.substring(0, filename.lastIndexOf(".")) + ".hex";
             try {
                 String assembled = assembler.assemble(preprocessed, labels);

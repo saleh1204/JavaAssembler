@@ -6,7 +6,6 @@
 package salehs.javaassembler;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
@@ -14,7 +13,7 @@ import java.util.Map;
  */
 public class PreProcessor {
 
-    private Map<String, Integer> labels;
+    private HashMap<String, Integer> labels;
 
     public PreProcessor() {
         labels = new HashMap<>();
@@ -29,6 +28,9 @@ public class PreProcessor {
             if (line.startsWith("#")) {
                 continue;
             }
+            if (line.contains("#")) {
+                line = line.substring(0, line.indexOf("#"));
+            }
             if (line.contains(":")) {
                 String label = line.substring(0, line.indexOf(":")).toLowerCase();
                 getLabels().put(label, line_no);
@@ -41,10 +43,8 @@ public class PreProcessor {
                     processed += line + "\n";
                     line_no++;
                 }
-            } else if (!line.isEmpty()) {
-                if (line.contains("#")) {
-                    line = line.substring(0, line.indexOf("#"));
-                }
+            }
+            else if (!line.isEmpty()) {
                 processed += line + "\n";
                 line_no++;
             }
@@ -55,14 +55,14 @@ public class PreProcessor {
     /**
      * @return the labels
      */
-    public Map<String, Integer> getLabels() {
+    public HashMap<String, Integer> getLabels() {
         return labels;
     }
 
     /**
      * @param labels the labels to set
      */
-    public void setLabels(Map<String, Integer> labels) {
+    public void setLabels(HashMap<String, Integer> labels) {
         this.labels = labels;
     }
 }

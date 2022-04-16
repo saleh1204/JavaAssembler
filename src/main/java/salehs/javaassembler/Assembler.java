@@ -45,8 +45,15 @@ public class Assembler {
             instruction |= funct << (inst_size - config.getFunct_offset());
             if (inst_type.getRs() != -1) {
                 try {
-                    int rs = Integer.parseInt(elements[inst_type.getRs()]);
-                    instruction |= (rs << (inst_size - config.getRs_offset()));
+                    String rs_str = elements[inst_type.getRs()];
+                    if (rs_str.startsWith("R") || rs_str.startsWith("$")) {
+                        int rs = Integer.parseInt(rs_str.substring(1));
+                        instruction |= (rs << (inst_size - config.getRs_offset()));
+                    } else {
+                        throw new Exception(
+                                "Instruction " + instructions[current] + " expects rs value at location "
+                                        + inst_type.getRs());
+                    }
                 } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     throw new Exception(
                             "Instruction " + instructions[current] + " expects rs value at location "
@@ -55,8 +62,15 @@ public class Assembler {
             }
             if (inst_type.getRt() != -1) {
                 try {
-                    int rt = Integer.parseInt(elements[inst_type.getRt()]);
-                    instruction |= (rt << (inst_size - config.getRt_offset()));
+                    String rt_str = elements[inst_type.getRt()];
+                    if (rt_str.startsWith("R") || rt_str.startsWith("$")) {
+                        int rt = Integer.parseInt(rt_str.substring(1));
+                        instruction |= (rt << (inst_size - config.getRt_offset()));
+                    } else {
+                        throw new Exception(
+                                "Instruction " + instructions[current] + " expects rt value at location "
+                                        + inst_type.getRt());
+                    }
                 } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     throw new Exception(
                             "Instruction " + instructions[current] + " expects rt value at location "
@@ -65,8 +79,15 @@ public class Assembler {
             }
             if (inst_type.getRd() != -1) {
                 try {
-                    int rd = Integer.parseInt(elements[inst_type.getRd()]);
-                    instruction |= (rd << (inst_size - config.getRd_offset()));
+                    String rd_str = elements[inst_type.getRd()];
+                    if (rd_str.startsWith("R") || rd_str.startsWith("$")) {
+                        int rd = Integer.parseInt(rd_str.substring(1));
+                        instruction |= (rd << (inst_size - config.getRd_offset()));
+                    } else {
+                        throw new Exception(
+                                "Instruction " + instructions[current] + " expects rd value at location "
+                                        + inst_type.getRd());
+                    }
                 } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     throw new Exception(
                             "Instruction " + instructions[current] + " expects rd value at location "
@@ -77,7 +98,7 @@ public class Assembler {
                     && inst_type.getImm_int() == inst_type.getJmm_label()) {
                 // Special Case Scenario for jalr with either immediate value and a label
                 try {
-                    int imm_int = Integer.parseInt(elements[inst_type.getImm_int()]);
+                    int imm_int = Integer.decode(elements[inst_type.getImm_int()]);
                     imm_int = imm_int & config.getIimm_mask();
                     if (inst_type.getSplit_imm_int() == 1) {
                         int imm_int_split0 = imm_int & inst_type.getMask_split_imm_int0();
@@ -110,7 +131,7 @@ public class Assembler {
             } else {
                 if (inst_type.getImm_int() != -1) {
                     try {
-                        int imm_int = Integer.parseInt(elements[inst_type.getImm_int()]);
+                        int imm_int = Integer.decode(elements[inst_type.getImm_int()]);
                         imm_int = imm_int & config.getIimm_mask();
                         if (inst_type.getSplit_imm_int() == 1) {
                             int imm_int_split0 = imm_int & inst_type.getMask_split_imm_int0();
@@ -163,7 +184,7 @@ public class Assembler {
             }
             if (inst_type.getImm_int12() != -1) {
                 try {
-                    int imm_int12 = Integer.parseInt(elements[inst_type.getImm_int12()]);
+                    int imm_int12 = Integer.decode(elements[inst_type.getImm_int12()]);
                     instruction |= (imm_int12 << (inst_size - config.getJimm_offset()));
                 } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     throw new Exception(

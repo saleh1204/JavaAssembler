@@ -1,70 +1,81 @@
 {
-  "ins_size": 16,
-  "rt_offset": 5,
-  "rs_offset": 8,
-  "funct_offset": 2,
-  "rd_offset": 11,
-  "iimm_offset": 5,
-  "iimm_mask": "1f",
-  "jimm_offset": 11,
-  "jimm_mask": "7ff",
-  "jimm_abs": 0,
-  "opcode_offset": 16,
+  "ins_size": 32,
+  "rt_offset": 16,
+  "rs_offset": 21,
+  "funct_offset": 11,
+  "rd_offset": 26,
+  "iimm_offset": 16,
+  "iimm_mask": "ffff",
+  "jimm_offset": 16,
+  "jimm_mask": "ffff",
+  "jimm_abs": 1,
+  "opcode_offset": 32,
   "Types": [
     "R0",
     "I0",
     "I1",
+    "I2",
+    "I3",
     "SB0",
-    "SB1",
-    "J0",
-    "J1",
-    "J2"
+    "SB1"
   ],
   "set": {
     "R0": {
       "instructions": {
-        "xor": [
-          "00000",
-          "00"
-        ],
-        "or": [
-          "00000",
-          "01"
-        ],
-        "and": [
-          "00000",
-          "10"
-        ],
         "sll": [
-          "00001",
-          "00"
+          "000000",
+          "00000000000"
         ],
         "srl": [
-          "00001",
-          "01"
+          "000000",
+          "00000000001"
         ],
         "sra": [
-          "00001",
-          "10"
+          "000000",
+          "00000000010"
+        ],
+        "ror": [
+          "000000",
+          "00000000011"
         ],
         "add": [
-          "00010",
-          "00"
+          "000000",
+          "00000000100"
         ],
         "sub": [
-          "00010",
-          "01"
+          "000000",
+          "00000000101"
         ],
         "slt": [
-          "00010",
-          "10"
+          "000000",
+          "00000000110"
         ],
         "sltu": [
-          "00010",
-          "11"
+          "000000",
+          "00000000111"
+        ],
+        "xor": [
+          "000000",
+          "00000001000"
+        ],
+        "or": [
+          "000000",
+          "00000001001"
+        ],
+        "and": [
+          "000000",
+          "00000001010"
+        ],
+        "nor": [
+          "000000",
+          "00000001011"
+        ],
+        "mul": [
+          "000000",
+          "00000001100"
         ]
       },
-      "seperator": " =\t,R$",
+      "seperator": " =\t,",
       "regs": {
         "rd": 1,
         "rs": 2,
@@ -76,61 +87,52 @@
     },
     "I0": {
       "instructions": {
-        "lw": [
-          "01100",
-          "00"
-        ]
-      },
-      "seperator": " =\t,R$()",
-      "regs": {
-        "rd": 1,
-        "rs": 3,
-        "rt": -1,
-        "imm_label": -1,
-        "imm_int": 2,
-        "jmm_label": -1
-      }
-    },
-    "I1": {
-      "instructions": {
-        "addi": [
-          "00011",
-          "00"
-        ],
-        "slti": [
-          "00100",
-          "00"
-        ],
-        "sltiu": [
-          "00101",
-          "00"
-        ],
-        "xori": [
-          "00110",
-          "00"
-        ],
-        "ori": [
-          "00111",
-          "00"
-        ],
-        "andi": [
-          "01000",
-          "00"
-        ],
         "slli": [
-          "01001",
-          "00"
+          "000001",
+          "00000000000"
         ],
         "srli": [
-          "01010",
-          "00"
+          "000010",
+          "00000000000"
         ],
         "srai": [
-          "01011",
-          "00"
+          "000011",
+          "00000000000"
+        ],
+        "rori": [
+          "000100",
+          "00000000000"
+        ],
+        "addi": [
+          "000101",
+          "00000000000"
+        ],
+        "slti": [
+          "000110",
+          "00000000000"
+        ],
+        "sltiu": [
+          "000111",
+          "00000000000"
+        ],
+        "xori": [
+          "001000",
+          "00000000000"
+        ],
+        "ori": [
+          "001001",
+          "00000000000"
+        ],
+        "andi": [
+          "001010",
+          "00000000000"
+        ],
+        "nori": [
+          "001011",
+          "00000000000"
         ]
       },
-      "seperator": " =\t,R$",
+      "seperator": " =\t,",
       "regs": {
         "rd": 1,
         "rs": 2,
@@ -140,24 +142,71 @@
         "jmm_label": -1
       }
     },
+    "I1": {
+      "instructions": {
+        "lui": [
+          "001100",
+          "00000000000"
+        ]
+      },
+      "seperator": " =\t,",
+      "regs": {
+        "rd": 1,
+        "imm_int": 2
+      }
+    },
+    "I2": {
+      "instructions": {
+        "jalr": [
+          "001101",
+          "00000000000"
+        ]
+      },
+      "seperator": " =\t,",
+      "regs": {
+        "rt": -1,
+        "rs": 2,
+        "rd": 1,
+        "imm_label": -1,
+        "imm_int": 3,
+        "jmm_label": 3
+      }
+    },
+    "I3": {
+      "instructions": {
+        "lw": [
+          "001110",
+          "00000000000"
+        ]
+      },
+      "seperator": " =\t,()",
+      "regs": {
+        "rd": 1,
+        "rs": 3,
+        "rt": -1,
+        "imm_label": -1,
+        "imm_int": 2,
+        "jmm_label": -1
+      }
+    },
     "SB0": {
       "instructions": {
         "sw": [
-          "01101",
-          "00"
+          "001111",
+          "00000000000"
         ]
       },
-      "seperator": " =\t,R$()",
+      "seperator": " =\t,()",
       "regs": {
         "rd": -1,
         "rs": 3,
         "rt": 1,
         "split_imm_int": 1,
-        "offset_split_imm_int0": 11,
-        "mask_split_imm_int0": 7,
-        "offset_split_imm_int1": 2,
-        "mask_split_imm_int1": 3,
-        "imm_int0_size": 3,
+        "offset_split_imm_int0": 26,
+        "mask_split_imm_int0": 31,
+        "offset_split_imm_int1": 11,
+        "mask_split_imm_int1": 2047,
+        "imm_int0_size": 5,
         "imm_label": -1,
         "imm_int": 2,
         "jmm_label": -1
@@ -166,28 +215,28 @@
     "SB1": {
       "instructions": {
         "beq": [
-          "01110",
-          "00"
+          "010000",
+          "00000000000"
         ],
         "bne": [
-          "01111",
-          "00"
+          "010001",
+          "00000000000"
         ],
         "blt": [
-          "10000",
-          "00"
+          "010010",
+          "00000000000"
         ],
         "bge": [
-          "10001",
-          "00"
+          "010011",
+          "00000000000"
         ],
         "bltu": [
-          "10010",
-          "00"
+          "010100",
+          "00000000000"
         ],
         "bgeu": [
-          "10011",
-          "00"
+          "010101",
+          "00000000000"
         ]
       },
       "seperator": " =\t,R$",
@@ -196,65 +245,14 @@
         "rs": 1,
         "rt": 2,
         "split_imm_int": 1,
-        "offset_split_imm_int0": 11,
-        "mask_split_imm_int0": 7,
-        "offset_split_imm_int1": 2,
-        "mask_split_imm_int1": 3,
-        "imm_int0_size": 3,
+        "offset_split_imm_int0": 26,
+        "mask_split_imm_int0": 31,
+        "offset_split_imm_int1": 11,
+        "mask_split_imm_int1": 2047,
+        "imm_int0_size": 5,
         "imm_label": 3,
         "imm_int": -1,
         "jmm_label": -1
-      }
-    },
-    "J0": {
-      "instructions": {
-        "j": [
-          "10101",
-          "00"
-        ],
-        "jal": [
-          "10110",
-          "00"
-        ]
-      },
-      "seperator": " =\t,R$",
-      "regs": {
-        "rt": -1,
-        "rs": -1,
-        "rd": -1,
-        "imm_label": -1,
-        "imm_int": -1,
-        "jmm_label": 1
-      }
-    },
-    "J1": {
-      "instructions": {
-        "jalr": [
-          "10111",
-          "00"
-        ]
-      },
-      "seperator": " =\t,R$",
-      "regs": {
-        "rt": -1,
-        "rs": 2,
-        "rd": 1,
-        "imm_label": -1,
-        "imm_int": 3,
-        "jmm_label": -1
-      }
-    },
-    "J2": {
-      "instructions": {
-        "lui": [
-          "10100",
-          "00"
-        ]
-      },
-      "seperator": " =\t,R$",
-      "regs": {
-        "rd": -1,
-        "imm_int12": 1
       }
     }
   }
