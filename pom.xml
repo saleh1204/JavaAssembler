@@ -91,6 +91,17 @@
 		</dependency>
 		<dependency>
 			<groupId>
+				com.formdev
+			</groupId>
+			<artifactId>
+				flatlaf
+			</artifactId>
+			<version>
+				3.0
+			</version>
+		</dependency>
+		<dependency>
+			<groupId>
 				com.github.weisj
 			</groupId>
 			<artifactId>
@@ -128,13 +139,13 @@
 			UTF-8
 		</project.build.sourceEncoding>
 		<maven.compiler.source>
-			11
+			8
 		</maven.compiler.source>
 		<maven.compiler.target>
-			11
+			8
 		</maven.compiler.target>
 		<java.version>
-			11
+			8
 		</java.version>
 		<exec.mainClass>
 			salehs.javaassembler.AssemblerGUI

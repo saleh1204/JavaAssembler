@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package salehs.javaassembler;
 
 import java.awt.Color;
@@ -22,9 +17,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.github.weisj.darklaf.LafManager;
-import com.github.weisj.darklaf.theme.DarculaTheme;
-
+import com.formdev.flatlaf.FlatDarculaLaf;
 import org.fife.ui.rsyntaxtextarea.AbstractTokenMakerFactory;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxScheme;
@@ -312,19 +305,18 @@ public class AssemblerGUI extends javax.swing.JFrame {
     public static void main(String args[]) {
         /* Create and display the form */
         try {
-            LafManager.setTheme(new DarculaTheme());
-            LafManager.install();
+            UIManager.setLookAndFeel(new FlatDarculaLaf());
             new AssemblerGUI().setVisible(true);
-        } catch (Exception e) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Could not set custom theme. Falling back to the basic native theme",
                     "Error setting custom theme", JOptionPane.ERROR_MESSAGE);
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 new AssemblerGUI().setVisible(true);
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                    | UnsupportedLookAndFeelException e1) {
-                JOptionPane.showMessageDialog(null, "Could not set native theme.", "Error setting native theme",
-                        JOptionPane.ERROR_MESSAGE);
+            } catch (ClassNotFoundException | InstantiationException |IllegalAccessException | UnsupportedLookAndFeelException e1) {
+                JOptionPane.showMessageDialog(null, "Could not set native theme.", "Error setting native theme", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception err) {
+                JOptionPane.showMessageDialog(null, "Could not set native theme.", "Error setting native theme", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -354,7 +346,7 @@ public class AssemblerGUI extends javax.swing.JFrame {
                 writer.write(code, 0, code.length());
                 writer.close();
                 this.statusLabel.setText("Status: Assembly file saved successfully");
-                this.statusLabel.setForeground(new Color(0, 100, 0));
+                this.statusLabel.setForeground(new Color(0, 255, 0));
                 saved = true;
             } catch (IOException x) {
                 JOptionPane.showMessageDialog(this, "File could not be opened: " + filename,
